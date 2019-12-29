@@ -3,6 +3,7 @@ package com.example.tof;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.media.Image;
 import android.media.ImageReader;
 import android.util.Log;
@@ -152,6 +153,9 @@ public class DepthFrameAvailableListener implements ImageReader.OnImageAvailable
                 bitmap.setPixel(x, y, Color.argb(255, 0, mask[index],0));
             }
         }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(180);
+        bitmap = Bitmap.createBitmap(bitmap, 0,0,WIDTH,HEIGHT, matrix, false);
         return bitmap;
     }
 }
