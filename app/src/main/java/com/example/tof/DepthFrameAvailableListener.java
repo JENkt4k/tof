@@ -12,8 +12,8 @@ import java.nio.ShortBuffer;
 public class DepthFrameAvailableListener implements ImageReader.OnImageAvailableListener {
     private static final String TAG = DepthFrameAvailableListener.class.getSimpleName();
 
-    public static int WIDTH = 240;
-    public static int HEIGHT = 180;
+    public static int WIDTH = 320;//240;//3840;//
+    public static int HEIGHT = 240;//180;//1280;//640 x 480, 320 x 240
 
     private static float RANGE_MIN = 200.0f;
     private static float RANGE_MAX = 1600.0f;
@@ -44,9 +44,9 @@ public class DepthFrameAvailableListener implements ImageReader.OnImageAvailable
             if (image != null && image.getFormat() == ImageFormat.DEPTH16) {
                 processImage(image);
                 publishRawData();
-                publishNoiseReduction();
-                publishMovingAverage();
-                publishBlurredMovingAverage();
+                //publishNoiseReduction();
+                //publishMovingAverage();
+                //publishBlurredMovingAverage();
             }
             image.close();
         }

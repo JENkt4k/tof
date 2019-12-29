@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements DepthFrameVisuali
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rawDataView = findViewById(R.id.rawData);
-        noiseReductionView = findViewById(R.id.noiseReduction);
-        movingAverageView = findViewById(R.id.movingAverage);
-        blurredAverageView = findViewById(R.id.blurredAverage);
+        //noiseReductionView = findViewById(R.id.noiseReduction);
+        //movingAverageView = findViewById(R.id.movingAverage);
+        //blurredAverageView = findViewById(R.id.blurredAverage);
 
         checkCamPermissions();
         camera = new Camera(this, this);
@@ -63,17 +63,17 @@ public class MainActivity extends AppCompatActivity implements DepthFrameVisuali
 
     @Override
     public void onNoiseReductionAvailable(Bitmap bitmap) {
-        renderBitmapToTextureView(bitmap, noiseReductionView);
+        //renderBitmapToTextureView(bitmap, noiseReductionView);
     }
 
     @Override
     public void onMovingAverageAvailable(Bitmap bitmap) {
-        renderBitmapToTextureView(bitmap, movingAverageView);
+        //renderBitmapToTextureView(bitmap, movingAverageView);
     }
 
     @Override
     public void onBlurredMovingAverageAvailable(Bitmap bitmap) {
-        renderBitmapToTextureView(bitmap, blurredAverageView);
+        //renderBitmapToTextureView(bitmap, blurredAverageView);
     }
 
     /* We don't want a direct camera preview since we want to get the frames of data directly

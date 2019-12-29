@@ -52,10 +52,16 @@ public class Camera extends CameraDevice.StateCallback {
 
     private String getFrontDepthCameraID() {
         try {
+
+            /*
+            val map = characteristics.get(
+                        CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP) ?: continue
+                        640 x 480, 320 x 240
+             */
             for (String camera : cameraManager.getCameraIdList()) {
                 CameraCharacteristics chars = cameraManager.getCameraCharacteristics(camera);
                 final int[] capabilities = chars.get(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES);
-                boolean facingFront = chars.get(CameraCharacteristics.LENS_FACING) == CameraMetadata.LENS_FACING_FRONT;
+                boolean facingFront = chars.get(CameraCharacteristics.LENS_FACING) == CameraMetadata.LENS_FACING_BACK;//CameraMetadata.LENS_FACING_FRONT
                 boolean depthCapable = false;
                 for (int capability : capabilities) {
                     boolean capable = capability == CameraMetadata.REQUEST_AVAILABLE_CAPABILITIES_DEPTH_OUTPUT;
@@ -65,6 +71,7 @@ public class Camera extends CameraDevice.StateCallback {
                     // Note that the sensor size is much larger than the available capture size
                     SizeF sensorSize = chars.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE);
                     Log.i(TAG, "Sensor size: " + sensorSize);
+                    Log.i(TAG, "Camera string: " + camera);
 
                     // Since sensor size doesn't actually match capture size and because it is
                     // reporting an extremely wide aspect ratio, this FoV is bogus
@@ -103,7 +110,7 @@ public class Camera extends CameraDevice.StateCallback {
     public void onOpened(@NonNull CameraDevice camera) {
         try {
             previewBuilder = camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
-            previewBuilder.set(CaptureRequest.JPEG_ORIENTATION, 0);
+            previewBuilder.set(CaptureRequest.JPEG_ORIENTATION, 0);//can I change this to 90?
             Range<Integer> fpsRange = new Range<>(FPS_MIN, FPS_MAX);
             previewBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, fpsRange);
             previewBuilder.addTarget(previewReader.getSurface());
